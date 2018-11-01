@@ -1,7 +1,38 @@
-plugins {
-    id 'cpp-library'
+plugins { id 'cpp-library' }
+library {
+    
+    
+    /*
+     * Need to figure out how to pass back to tasks from cpp-libary to ANCT
+     */
+    privateMacros.put('LIBRARY_PRIV_MAC', null)
+    publicMacros.put('LIBRARY_PUB_MAC', null)
+
+
+    /**
+     * These public headers get passed from the DefaultCppLibrary to the task AbstractNativeCompileTask as 'includes'
+     * and will be appended to whatever the task is also including
+     */
+    publicHeaders.from project.file('src/main/public/')
+    publicHeaders.from project.file('src/xxxx/yyyyy/')
+    publicHeaders.from project.file('src/hhhh/zzzzz/')
+    publicHeaders.from project.file('src/mbbbbain/eeee/')
+    publicHeaders.from project.file('src/hhhhh/qqqq/')
 }
 
 tasks.withType(CppCompile) {
-	macros.put('EMPTY_CHECK', null)
+    
+    
+    macros.put('EMPTY_CHECK', null)
+    privateMacros.put('PRIV_MAC', null)
+    publicMacros.put('PUB_MAC', null)
+
+    /*
+     * This includes get populated not only locally, but from the parent plugin DefaultCppLibrary and merged into the map
+     */
+    includes.from project.file('src/main/public/include-from-task')
+    includes.from project.file('src/main/public/include-from-task2')
+    includes.from project.file('src/main/public/include-from-task3')
+    includes.from project.file('src/main/public/include-from-task4')
+    includes.from project.file('src/main/public/include-from-task5')
 }
