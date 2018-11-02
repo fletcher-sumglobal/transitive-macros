@@ -24,8 +24,6 @@ tasks.withType(CppCompile) {
     
     
     macros.put('EMPTY_CHECK', null)
-    privateMacros.put('PRIV_MAC', null)
-    publicMacros.put('PUB_MAC', null)
 
     /*
      * This includes get populated not only locally, but from the parent plugin DefaultCppLibrary and merged into the map
